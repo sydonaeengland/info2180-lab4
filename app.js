@@ -1,24 +1,30 @@
 document.getElementById("searchButton").addEventListener("click", function () {
-  fetch("superheroes.php")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network error occurred.");
+  const query = document.getElementById("searchInput").value.trim();
+  const resultBox = document.getElementById("result");
+
+  const httpRequest = new XMLHttpRequest();
+  httpRequest.open(
+    "GET",
+    `superheroes.php?query=${encodeURIComponent(query)}`,
+    true
+  );
+
+  httpRequest.onload = function () {
+    if (httpRequest.status === 200) {
+      const response = httpRequest.responseText.trim();
+      resultBox.innerHTML = response;
+
+      if (query !== "" && response.includes("SUPERHERO NOT FOUND")) {
+        resultBox.innerHTML = `<h3 style="color: red;">SUPERHERO NOT FOUND</h3>`;
       }
-      return response.text();
-    })
-    .then((data) => {
-      const superheroList = document.getElementById("superheroList");
+    } else {
+      resultBox.innerHTML = `<h3 style="color: red;">An error occurred. Please try again later.</h3>`;
+    }
+  };
 
-      superheroList.textContent = data.trim();
+  httpRequest.onerror = function () {
+    resultBox.innerHTML = `<h3 style="color: red;">Network error. Please check your connection.</h3>`;
+  };
 
-      document.getElementById("ModalPopUp").style.display = "flex";
-    })
-    .catch((error) => {
-      console.error("Failed to fetch superheroes.", error);
-    });
-});
-
-// Closing the Modal Pop Up
-document.getElementById("closeModal").addEventListener("click", function () {
-  document.getElementById("ModalPopUp").style.display = "none";
+  httpRequest.send();
 });

@@ -7,21 +7,31 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="overlay"></div>
     <header>
-      <h1>Avengers Character Search</h1>
-    </header>
-    <main>
-      <button id="searchButton">Search</button>
-    </main>
-    <!-- Modal Pop up -->
-    <div id="ModalPopUp" class="modal" style="display: none">
-      <div class="modal-content">
-        <ul id="superheroList"></ul>
-        <div class="modal-footer">
-          <button id="closeModal">OK</button>
-        </div>
+      <div class="logo-container">
+        <img src="marvellogo.png" alt="Marvel Logo" class="marvel-logo" />
+        <img src="avengerslogo.png" alt="Avengers Logo" class="avengers-logo" />
+        <img src="alogo.png" alt="Avengers Letter" class="alogo" />
       </div>
-    </div>
+    </header>
+    <h1>Avengers Character Search</h1>
+    <main>
+      <div class="search-container">
+        <h3>Search by Full Name or Alias</h3>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="e.g. Black Widow or Natasha"
+        />
+        <button id="searchButton">Search</button>
+      </div>
+      <h2>RESULT</h2>
+      <div id="result" class="result-box"></div>
+    </main>
+    <footer>
+      <p>Copyright &copy; 2024, Sydonae England</p>
+    </footer>
     <script src="app.js"></script>
   </body>
 </html>
